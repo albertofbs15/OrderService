@@ -5,6 +5,7 @@ import model.Product;
 import service.CreateOrderRequest;
 import service.OrderInfoForApprobation;
 import service.ResponseCreateOrder;
+import service.ResponseOrderStatus;
 import service.TouresBalonService;
 import service.UpdateOrderStatus;
 import service.ClientStatus;
@@ -59,7 +60,7 @@ public class SoapOrderService {
 	}
 
 	@WebMethod(operationName = "getOrderById", action = "getOrderById")
-	public Order getOrderById(int orderId)  {
+	public ResponseOrderStatus getOrderById(int orderId)  {
 		return touresBalonService.getOrderById(orderId);
 	}
 

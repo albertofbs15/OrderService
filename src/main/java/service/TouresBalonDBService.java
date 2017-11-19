@@ -63,7 +63,15 @@ public class TouresBalonDBService implements TouresBalonService {
     }
 
     @Override
-    public Order getOrderById(int orderId) {
-        return entityManager.find(Order.class, orderId);
+    public ResponseOrderStatus getOrderById(int orderId) {
+        Order order = entityManager.find(Order.class, orderId);
+
+        ResponseOrderStatus responseCreateOrder = new ResponseOrderStatus();
+        responseCreateOrder.setOrderId(orderId);
+        responseCreateOrder.setLodgingOrder(order.getLodgingOrder());
+        responseCreateOrder.setSpectacleOrder(order.getSpectacleOrder());
+        responseCreateOrder.setTransportOrder(order.getTransportOrder());
+
+        return responseCreateOrder;
     }
 }
