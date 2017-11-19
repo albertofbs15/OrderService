@@ -25,12 +25,14 @@ public class TouresBalonDBService implements TouresBalonService {
         order.setOrderDate(new Date());
         order.setPrice(createOrder.getPrice());
         order.setStatus("EN VALIDACION");
-        order.setUserId(createOrder.getUserId());
+        order.setCustomerId(createOrder.getUserId());
+        order.setComments("Comment");
         entityManager.persist(order);
 
         for (Item item :  createOrder.getItems()) {
-            model.OrderItem orderItem = new model.OrderItem(item.getProductId(), item.getProductName(), item.getPrice(), item.getQuantity(), order);
-            order.getOrderItem().add(orderItem);
+            model.Item orderItem = new model.Item(item.getProductId(), item.getProductName(), item.getPrice(), item.getQuantity(), order);
+            order.getItems().add(orderItem);
+            entityManager.persist(orderItem);
         }
 
         ResponseCreateOrder responseCreateOrder = new ResponseCreateOrder();
@@ -58,5 +60,10 @@ public class TouresBalonDBService implements TouresBalonService {
     @Override
     public Product getProductById(int productId) {
         return entityManager.find(Product.class, productId);
+    }
+
+    @Override
+    public Order getOrderById(int orderId) {
+        return entityManager.find(Order.class, orderId);
     }
 }

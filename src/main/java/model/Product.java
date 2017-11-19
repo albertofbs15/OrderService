@@ -22,25 +22,33 @@ public class Product {
     @Column
     private String name;
     @Column
-    private Date spectacle_date;
+    private Date spectacleDate;
     @Column
-    private Date arrival_date;
+    private Date arrivalDate;
     @Column
-    private int transport_type;
+    private Date departureDate;
     @Column
-    private int spectacle_type;
+    private int transportCode;
     @Column
-    private int lodging_type;
+    private int spectacleCode;
+    @Column
+    private int lodgingCode;
     @Column
     private String description;
     @Column
-    private String code;
+    private String imageReference;
     @Column
-    private String image_ref;
+    private String sourceCity;
     @Column
-    private String source_city;
-    @Column
-    private String target_city;
+    private String targetCity;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -50,44 +58,52 @@ public class Product {
         this.name = name;
     }
 
-    public Date getSpectacle_date() {
-        return spectacle_date;
+    public Date getSpectacleDate() {
+        return spectacleDate;
     }
 
-    public void setSpectacle_date(Date spectacle_date) {
-        this.spectacle_date = spectacle_date;
+    public void setSpectacleDate(Date spectacleDate) {
+        this.spectacleDate = spectacleDate;
     }
 
-    public Date getArrival_date() {
-        return arrival_date;
+    public Date getArrivalDate() {
+        return arrivalDate;
     }
 
-    public void setArrival_date(Date arrival_date) {
-        this.arrival_date = arrival_date;
+    public void setArrivalDate(Date arrivalDate) {
+        this.arrivalDate = arrivalDate;
     }
 
-    public int getTransport_type() {
-        return transport_type;
+    public Date getDepartureDate() {
+        return departureDate;
     }
 
-    public void setTransport_type(int transport_type) {
-        this.transport_type = transport_type;
+    public void setDepartureDate(Date departureDate) {
+        this.departureDate = departureDate;
     }
 
-    public int getSpectacle_type() {
-        return spectacle_type;
+    public int getTransportCode() {
+        return transportCode;
     }
 
-    public void setSpectacle_type(int spectacle_type) {
-        this.spectacle_type = spectacle_type;
+    public void setTransportCode(int transportCode) {
+        this.transportCode = transportCode;
     }
 
-    public int getLodging_type() {
-        return lodging_type;
+    public int getSpectacleCode() {
+        return spectacleCode;
     }
 
-    public void setLodging_type(int lodging_type) {
-        this.lodging_type = lodging_type;
+    public void setSpectacleCode(int spectacleCode) {
+        this.spectacleCode = spectacleCode;
+    }
+
+    public int getLodgingCode() {
+        return lodgingCode;
+    }
+
+    public void setLodgingCode(int lodgingCode) {
+        this.lodgingCode = lodgingCode;
     }
 
     public String getDescription() {
@@ -98,35 +114,27 @@ public class Product {
         this.description = description;
     }
 
-    public String getCode() {
-        return code;
+    public String getImageReference() {
+        return imageReference;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setImageReference(String imageReference) {
+        this.imageReference = imageReference;
     }
 
-    public String getImage_ref() {
-        return image_ref;
+    public String getSourceCity() {
+        return sourceCity;
     }
 
-    public void setImage_ref(String image_ref) {
-        this.image_ref = image_ref;
+    public void setSourceCity(String sourceCity) {
+        this.sourceCity = sourceCity;
     }
 
-    public String getSource_city() {
-        return source_city;
+    public String getTargetCity() {
+        return targetCity;
     }
 
-    public void setSource_city(String source_city) {
-        this.source_city = source_city;
-    }
-
-    public String getTarget_city() {
-        return target_city;
-    }
-
-    public void setTarget_city(String target_city) {
-        this.target_city = target_city;
+    public void setTargetCity(String targetCity) {
+        this.targetCity = targetCity;
     }
 }

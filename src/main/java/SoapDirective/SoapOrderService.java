@@ -1,5 +1,6 @@
 package SoapDirective;
 
+import model.Order;
 import model.Product;
 import service.CreateOrderRequest;
 import service.OrderInfoForApprobation;
@@ -55,6 +56,11 @@ public class SoapOrderService {
 	@WebMethod(operationName = "getProductById", action = "getProductById")
 	public Product getProductById(int productId)  {
 		return touresBalonService.getProductById(productId);
+	}
+
+	@WebMethod(operationName = "getOrderById", action = "getOrderById")
+	public Order getOrderById(int orderId)  {
+		return touresBalonService.getOrderById(orderId);
 	}
 
 	@WebMethod(operationName = "requestTransport", action = "requestTransport")

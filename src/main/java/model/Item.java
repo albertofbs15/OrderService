@@ -15,29 +15,29 @@ import javax.persistence.Entity;
  * Created by AHernandezS on 5/11/2017.
  */
 @Entity
-@Table(name = "ORDER_ITEM")
-public class OrderItem implements Serializable {
+@Table(name = "item")
+public class Item implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name = "ID")
+    @Column
     private Integer id;
-    @Column(name = "PRODUCT_ID")
+    @Column
     private int productId;
-    @Column(name = "PRODUCT_NAME")
+    @Column
     private String productName;
-    @Column(name = "PRICE")
+    @Column
     private int price;
-    @Column(name = "QUANTITY")
+    @Column
     private int quantity;
     @ManyToOne
-    @JoinColumn(name = "ORDER_ID", referencedColumnName = "ID")
+    @JoinColumn(name = "orderId")
     private Order order;
 
-    public OrderItem() {
+    public Item() {
     }
 
-    public OrderItem(int productId, String productName, int price, int quantity, Order order) {
+    public Item(int productId, String productName, int price, int quantity, Order order) {
         this.productId = productId;
         this.productName = productName;
         this.price = price;

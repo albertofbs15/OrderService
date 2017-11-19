@@ -16,24 +16,30 @@ import javax.persistence.Entity;
  * Created by AHernandezS on 5/11/2017.
  */
 @Entity
-@Table(name = "SALES_ORDER")
+@Table(name = "order_2")
 public class Order implements Serializable {
-
-    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name = "ID")
+    @Column
     private Integer id;
-    @Column(name = "ORDER_DATE")
+    @Column
     private Date orderDate;
-    @Column(name = "PRICE")
+    @Column
     private int price;
-    @Column(name = "STATUS")
+    @Column
     private String status;
-    @Column(name = "USERID")
-    private int userId;
+    @Column
+    private int customerId;
+    @Column
+    private String comments;
+    @Column
+    private int transportOrder;
+    @Column
+    private int lodgingOrder;
+    @Column
+    private int spectacleOrder;
     @OneToMany(mappedBy = "order")
-    private List<OrderItem> orderItem = new ArrayList<>();
+    private List<Item> items = new ArrayList<>();
 
     public Integer getId() {
         return id;
@@ -67,20 +73,51 @@ public class Order implements Serializable {
         this.status = status;
     }
 
-    public int getUserId() {
-        return userId;
+    public int getCustomerId() {
+        return customerId;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
     }
 
-    public List<OrderItem> getOrderItem() {
-        return orderItem;
+    public String getComments() {
+        return comments;
     }
 
-    public void setOrderItem(List<OrderItem> orderItem) {
-        this.orderItem = orderItem;
+    public void setComments(String comments) {
+        this.comments = comments;
     }
 
+    public List<Item> getItems() {
+        return items;
+    }
+
+    public void setItems(List<Item> items) {
+        this.items = items;
+    }
+
+    public int getTransportOrder() {
+        return transportOrder;
+    }
+
+    public void setTransportOrder(int transportOrder) {
+        this.transportOrder = transportOrder;
+    }
+
+    public int getLodgingOrder() {
+        return lodgingOrder;
+    }
+
+    public void setLodgingOrder(int lodgingOrder) {
+        this.lodgingOrder = lodgingOrder;
+    }
+
+    public int getSpectacleOrder() {
+        return spectacleOrder;
+    }
+
+    public void setSpectacleOrder(int spectacleOrder) {
+        this.spectacleOrder = spectacleOrder;
+    }
 }

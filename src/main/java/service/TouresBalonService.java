@@ -1,5 +1,6 @@
 package service;
 
+import model.Order;
 import model.Product;
 
 /**
@@ -12,5 +13,7 @@ public interface TouresBalonService {
     boolean updateOrderStatus(UpdateOrderStatus requestUpdateOrderStatus);
 
     Product getProductById(int productId);
+
+    Order getOrderById(int orderId);
 
 }
