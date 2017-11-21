@@ -1,4 +1,4 @@
-package service;
+package service.validateClientStatus;
 
 import javax.xml.bind.annotation.XmlRootElement;
 

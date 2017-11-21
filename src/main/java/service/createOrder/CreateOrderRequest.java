@@ -1,6 +1,7 @@
-package service;
+package service.createOrder;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -9,7 +10,7 @@ import java.util.List;
 public class CreateOrderRequest implements Serializable {
     private int price;
     private int userId;
-    List<Item> items;
+    List<ItemCreateRequest> items = new ArrayList<>();
 
     public int getPrice() {
         return price;
@@ -27,11 +28,11 @@ public class CreateOrderRequest implements Serializable {
         this.userId = userId;
     }
 
-    public List<Item> getItems() {
+    public List<ItemCreateRequest> getItems() {
         return items;
     }
 
-    public void setItems(List<Item> items) {
+    public void setItems(List<ItemCreateRequest> items) {
         this.items = items;
     }
 

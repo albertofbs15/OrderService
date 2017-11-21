@@ -2,13 +2,22 @@ package service;
 
 import model.Order;
 import model.Product;
+import service.createOrder.CreateOrderRequest;
+import service.createOrder.ItemCreateRequest;
+import service.createOrder.ResponseCreateOrder;
+import service.getOrderById.ResponseItemStatus;
+import service.updateRequest.UpdateItemRequest;
+import service.updateRequest.UpdateOrderRequest;
+import service.getOrderById.ResponseOrderStatus;
 
 import javax.ejb.Stateless;
 import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Stateless
 @TransactionManagement(TransactionManagementType.CONTAINER)
@@ -29,31 +38,21 @@ public class TouresBalonDBService implements TouresBalonService {
         order.setComments("Comment");
         entityManager.persist(order);
 
-        for (Item item :  createOrder.getItems()) {
-            model.Item orderItem = new model.Item(item.getProductId(), item.getProductName(), item.getPrice(), item.getQuantity(), order);
+        List<Integer> itemIdList = new ArrayList<>();
+        for (ItemCreateRequest item :  createOrder.getItems()) {
+            model.Item orderItem = new model.Item(item.getProductId(), item.getProductName(), item.getPrice(), item.getQuantity(),
+                    item.getLodgingProvider(), item.getTransportProvider(), item.getSpectacleProvider(), order);
             order.getItems().add(orderItem);
             entityManager.persist(orderItem);
+            itemIdList.add(orderItem.getId());
         }
 
         ResponseCreateOrder responseCreateOrder = new ResponseCreateOrder();
         responseCreateOrder.setOrderId(order.getId());
+        responseCreateOrder.setItemId(itemIdList);
 
         System.out.println("Done " + order.getId());
         return responseCreateOrder;
-
-    }
-
-    @Override
-    public boolean updateOrderStatus(UpdateOrderStatus updateOrderStatus) {
-        Order order = entityManager.find(Order.class, updateOrderStatus.getOrderId());
-        if (order == null ) {
-            System.out.println("ORDER WITH ID " + updateOrderStatus.getOrderId() + " WAS NOT FOUND");
-            return false;
-        }
-
-        order.setStatus(updateOrderStatus.getStatus());
-        entityManager.persist(order);
-        return true;
 
     }
 
@@ -63,15 +62,65 @@ public class TouresBalonDBService implements TouresBalonService {
     }
 
     @Override
+    public boolean updateOrder(UpdateOrderRequest updateOrder) {
+        Order order = entityManager.find(Order.class, updateOrder.getOrderId());
+        if (order == null ) {
+            System.out.println("ORDER WITH ID " + updateOrder.getOrderId() + " WAS NOT FOUND");
+            return false;
+        }
+
+        order.setStatus(updateOrder.getStatus());
+        entityManager.persist(order);
+
+        if (updateOrder.getUpdateItemRequests() != null ) {
+            for (UpdateItemRequest updateItemStatus : updateOrder.getUpdateItemRequests()){
+                model.Item item = entityManager.find(model.Item.class, updateItemStatus.getItemId());
+
+                item.setLodgingOrder(updateItemStatus.getLodgingOrder());
+                item.setTransportOrder(updateItemStatus.getTransportOrder());
+                item.setSpectacleOrder(updateItemStatus.getSpectacleOrder());
+
+                entityManager.persist(item);
+            }
+        }
+
+        return true;
+    }
+
+    @Override
+    public boolean updateItem(UpdateItemRequest requestUpdateItemStatus) {
+        model.Item item = entityManager.find(model.Item.class, requestUpdateItemStatus.getItemId());
+
+        item.setLodgingOrder(requestUpdateItemStatus.getLodgingOrder());
+        item.setTransportOrder(requestUpdateItemStatus.getTransportOrder());
+        item.setSpectacleOrder(requestUpdateItemStatus.getSpectacleOrder());
+
+        entityManager.persist(item);
+
+        return true;
+    }
+
+    @Override
     public ResponseOrderStatus getOrderById(int orderId) {
+
         Order order = entityManager.find(Order.class, orderId);
 
-        ResponseOrderStatus responseCreateOrder = new ResponseOrderStatus();
-        responseCreateOrder.setOrderId(orderId);
-        responseCreateOrder.setLodgingOrder(order.getLodgingOrder());
-        responseCreateOrder.setSpectacleOrder(order.getSpectacleOrder());
-        responseCreateOrder.setTransportOrder(order.getTransportOrder());
+        ResponseOrderStatus responseOrderStatus = new ResponseOrderStatus();
+        responseOrderStatus.setOrderId(orderId);
 
-        return responseCreateOrder;
+        List<ResponseItemStatus> responseItemStatusList = new ArrayList<>();
+        for (model.Item item : order.getItems()){
+
+            ResponseItemStatus responseItemStatus =  new ResponseItemStatus();
+            responseItemStatus.setId(order.getId());
+            responseItemStatus.setLodgingOrder(item.getLodgingOrder());
+            responseItemStatus.setSpectacleOrder(item.getSpectacleOrder());
+            responseItemStatus.setTransportOrder(item.getTransportOrder());
+
+            responseItemStatusList.add(responseItemStatus);
+        }
+
+        responseOrderStatus.setResponseItemStatusList(responseItemStatusList);
+        return responseOrderStatus;
     }
 }

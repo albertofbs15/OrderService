@@ -1,14 +1,14 @@
 package SoapDirective;
 
-import model.Order;
 import model.Product;
-import service.CreateOrderRequest;
-import service.OrderInfoForApprobation;
-import service.ResponseCreateOrder;
-import service.ResponseOrderStatus;
+import service.createOrder.CreateOrderRequest;
+import service.manualApprobation.OrderInfoForApprobation;
+import service.createOrder.ResponseCreateOrder;
+import service.getOrderById.ResponseOrderStatus;
 import service.TouresBalonService;
-import service.UpdateOrderStatus;
-import service.ClientStatus;
+import service.updateRequest.UpdateItemRequest;
+import service.updateRequest.UpdateOrderRequest;
+import service.validateClientStatus.ClientStatus;
 
 import javax.ejb.EJB;
 import javax.jws.WebMethod;
@@ -38,8 +38,13 @@ public class SoapOrderService {
 	}
 
 	@WebMethod(operationName = "updateOrder", action = "updateOrder")
-	public Boolean updateOrder(UpdateOrderStatus updateOrderStatus)  {
+	public Boolean updateOrder(UpdateOrderRequest updateOrderStatus)  {
 		return handleUpdateOrderStatus(updateOrderStatus);
+	}
+
+	@WebMethod(operationName = "updateItem", action = "updateItem")
+	public Boolean updateOrder(UpdateItemRequest updateItemRequest)  {
+		return handleUpdateItemStatus(updateItemRequest);
 	}
 
 	@WebMethod(operationName = "validateClientStatusOperation", action = "validateClientStatusOperation")
@@ -51,7 +56,8 @@ public class SoapOrderService {
 	public Boolean manualApprobation(OrderInfoForApprobation orderInfoForApprobation)  {
 		boolean manualApprobation = random.nextBoolean();
 		System.out.println("MANUAL APPROBATION:" + manualApprobation);
-		return manualApprobation;
+		//return manualApprobation;
+		return true;
 	}
 
 	@WebMethod(operationName = "getProductById", action = "getProductById")
@@ -98,9 +104,14 @@ public class SoapOrderService {
 		return response;
 	}
 
-	private Boolean handleUpdateOrderStatus(UpdateOrderStatus updateOrderStatus) {
+	private Boolean handleUpdateOrderStatus(UpdateOrderRequest updateOrderStatus) {
 		System.out.println("handleUpdateOrderStatus");
-		return  touresBalonService.updateOrderStatus(updateOrderStatus);
+		return  touresBalonService.updateOrder(updateOrderStatus);
+	}
+
+	private Boolean handleUpdateItemStatus(UpdateItemRequest updateItemRequest) {
+		System.out.println("handleUpdateIemStatus");
+		return  touresBalonService.updateItem(updateItemRequest);
 	}
 
 	private Boolean handleValidateClientStatus(ClientStatus clientStatus) {

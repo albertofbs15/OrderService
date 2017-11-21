@@ -1,32 +1,20 @@
-package service;
-
-import javax.xml.bind.annotation.XmlRootElement;
+package service.updateRequest;
 
 /**
- * Created by AHernandezS on 4/11/2017.
+ * Created by AHernandezS on 19/11/2017.
  */
-@XmlRootElement
-public class UpdateOrderStatus {
-    private int orderId;
-    private String status;
+public class UpdateItemRequest {
+    private int itemId;
     private int transportOrder;
     private int lodgingOrder;
     private int spectacleOrder;
 
-    public int getOrderId() {
-        return orderId;
+    public int getItemId() {
+        return itemId;
     }
 
-    public void setOrderId(int orderId) {
-        this.orderId = orderId;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
+    public void setItemId(int itemId) {
+        this.itemId = itemId;
     }
 
     public int getTransportOrder() {

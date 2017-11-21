@@ -1,22 +1,23 @@
-package service;
+package service.getOrderById;
 
 import java.io.Serializable;
 
 /**
- * Created by AHernandezS on 4/11/2017.
+ * Created by AHernandezS on 19/11/2017.
  */
-public class ResponseOrderStatus implements Serializable{
-    private int orderId;
+public class ResponseItemStatus implements Serializable {
+
+    private int id;
     private int transportOrder;
     private int lodgingOrder;
     private int spectacleOrder;
 
-    public int getOrderId() {
-        return orderId;
+    public int getId() {
+        return id;
     }
 
-    public void setOrderId(int orderId) {
-        this.orderId = orderId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getTransportOrder() {
