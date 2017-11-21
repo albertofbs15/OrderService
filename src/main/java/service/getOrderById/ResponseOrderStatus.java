@@ -8,6 +8,7 @@ import java.util.List;
  */
 public class ResponseOrderStatus implements Serializable{
     private int orderId;
+    private String status;
     private List<ResponseItemStatus> responseItemStatusList;
 
     public int getOrderId() {
@@ -24,5 +25,13 @@ public class ResponseOrderStatus implements Serializable{
 
     public void setResponseItemStatusList(List<ResponseItemStatus> responseItemStatusList) {
         this.responseItemStatusList = responseItemStatusList;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

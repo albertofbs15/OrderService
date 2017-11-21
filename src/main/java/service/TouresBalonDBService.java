@@ -107,6 +107,7 @@ public class TouresBalonDBService implements TouresBalonService {
 
         ResponseOrderStatus responseOrderStatus = new ResponseOrderStatus();
         responseOrderStatus.setOrderId(orderId);
+        responseOrderStatus.setStatus(order.getStatus());
 
         List<ResponseItemStatus> responseItemStatusList = new ArrayList<>();
         for (model.Item item : order.getItems()){
@@ -116,6 +117,10 @@ public class TouresBalonDBService implements TouresBalonService {
             responseItemStatus.setLodgingOrder(item.getLodgingOrder());
             responseItemStatus.setSpectacleOrder(item.getSpectacleOrder());
             responseItemStatus.setTransportOrder(item.getTransportOrder());
+
+            responseItemStatus.setLodgingProvider(item.getLodgingProvider());
+            responseItemStatus.setSpectacleProvider(item.getSpectacleProvider());
+            responseItemStatus.setTransportProvider(item.getTransportProvider());
 
             responseItemStatusList.add(responseItemStatus);
         }
